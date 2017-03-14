@@ -43,6 +43,7 @@ h3 {
   font-style: italic;
   font-size: 20px;
   color: #000;
+  padding: 10px 0;
   line-height: 22px;
 }
 
@@ -54,7 +55,6 @@ h4 {
 }
 
 h2,
-h3,
 h4,
 h5 {
   padding: 10px 5%;
