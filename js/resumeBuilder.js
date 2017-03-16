@@ -62,17 +62,21 @@ var work = {
   ]
 }
 
-$("#workExperience").append(HTMLworkStart);
-var formattedWorkEmployer = HTMLworkEmployer.replace("%data%", work.job[0].employer);
-$(".work-entry").append(formattedWorkEmployer);
-var formattedWorkTitle = HTMLworkTitle.replace("%data%", work.job[0].title);
-$(".work-entry").append(formattedWorkTitle);
-var formattedWorkLocation = HTMLworkLocation.replace("%data%", work.job[0].location);
-$(".work-entry").append(formattedWorkLocation);
-var formattedWorkDates = HTMLworkDates.replace("%data%", work.job[0].dates);
-$(".work-entry").append(formattedWorkDates);
-var formattedWorkDescription = HTMLworkDescription.replace("%data%", work.job[0].description);
-$(".work-entry").append(formattedWorkDescription);
+for (var i = 0; i < work.job.length; i++) {
+  $("#workExperience").append(HTMLworkStart);
+
+  var formattedEmployer = HTMLworkEmployer.replace("%data%", work.job[i].employer);
+  var formattedTitle = HTMLworkTitle.replace("%data%", work.job[i].title);
+  var formattedEmployerTitle = formattedEmployer + formattedTitle;
+  $(".work-entry:last").append(formattedEmployerTitle);
+
+  var formattedLocation = HTMLworkLocation.replace("%data%", work.job[i].location);
+  $(".work-entry:last").append(formattedLocation);
+  var formattedDates = HTMLworkDates.replace("%data%", work.job[i].dates);
+  $(".work-entry:last").append(formattedDates);
+  var formattedDescription = HTMLworkDescription.replace("%data%", work.job[i].description);
+  $(".work-entry:last").append(formattedDescription);
+}
 
 // Object: PROJECTS
 var projects = {
