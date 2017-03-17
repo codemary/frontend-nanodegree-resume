@@ -13,6 +13,15 @@ var bio = {
   "skills" : ["HTML5", "CSS3", "JavaScript"]
 };
 
+function inName(name) {
+  name = name.trim().split(" ");
+  console.log(name);
+  name[1] = name[1].toUpperCase();
+  name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1).toLowerCase();
+
+  return name[0] + " " + name[1];
+}
+
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
 
@@ -49,9 +58,9 @@ if (bio.skills.length > 0) {
   $("#skills").append(formattedSkills);
 }
 
-// Object: WORK, dot notation
+// Object: WORK
 var work = {
-  "job": [
+  "jobs": [
     {
       "employer": "Presidium",
       "title": "Primary School Teacher",
@@ -62,40 +71,58 @@ var work = {
   ]
 }
 
-for (var i = 0; i < work.job.length; i++) {
+function displayWork(){
+for (var i = 0; i < work.jobs.length; i++) {
   $("#workExperience").append(HTMLworkStart);
 
-  var formattedEmployer = HTMLworkEmployer.replace("%data%", work.job[i].employer);
-  var formattedTitle = HTMLworkTitle.replace("%data%", work.job[i].title);
+  var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[i].employer);
+  var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[i].title);
   var formattedEmployerTitle = formattedEmployer + formattedTitle;
   $(".work-entry:last").append(formattedEmployerTitle);
 
-  var formattedLocation = HTMLworkLocation.replace("%data%", work.job[i].location);
+  var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[i].location);
   $(".work-entry:last").append(formattedLocation);
-  var formattedDates = HTMLworkDates.replace("%data%", work.job[i].dates);
+  var formattedDates = HTMLworkDates.replace("%data%", work.jobs[i].dates);
   $(".work-entry:last").append(formattedDates);
-  var formattedDescription = HTMLworkDescription.replace("%data%", work.job[i].description);
+  var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[i].description);
   $(".work-entry:last").append(formattedDescription);
 }
+}
+displayWork();
 
 // Object: PROJECTS
 var projects = {
-  "project": [
+  "projects": [
     {
       "title": "My Portfolio",
       "dates": "January 2017",
-      "description": "Made a responsive website using HTML5, CSS3 and Gulp."
+      "description": "Made a responsive website using HTML5, CSS3 and Gulp.",
+      "images": []
     }
   ]
 }
 
-$("#projects").append(HTMLprojectStart);
-var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.project[0].title);
-$(".project-entry").append(formattedProjectTitle);
-var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.project[0].dates);
-$(".project-entry").append(formattedProjectDates);
-var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.project[0].description);
-$(".project-entry").append(formattedProjectDescription);
+projects.display = function() {
+  for (project in projects.projects) {
+    $("#projects").append(HTMLprojectStart);
+
+    var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+    $(".project-entry:last").append(formattedProjectTitle);
+    var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+    $(".project-entry:last").append(formattedProjectDates);
+    var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+    $(".project-entry:last").append(formattedProjectDescription);
+
+    if (projects.projects[project].images.length > 0) {
+      for (image in projects.projects[project].images) {
+        var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image])
+        $(".project-entry:last").append(formattedProjectImage);
+      }
+
+    }
+  }
+}
+projects.display();
 
 // Object: EDUCATION
 var education = {
@@ -151,3 +178,16 @@ var formattedOnlineCollegeDates = HTMLonlineDates.replace("%data%", education.on
 $(".education-entry").append(formattedOnlineCollegeDates);
 var formattedOnlineCollegeUrl = HTMLonlineURL.replace("%data%", education.onlineCourses[0].url);
 $(".education-entry").append(formattedOnlineCollegeUrl);
+
+// Click Locations
+$(document).click(function(loc) {
+  var x = loc.pageX;
+  var y = loc.pageY;
+  logClicks(x,y);
+});
+
+// Internationaliz the name
+$("#main").append(internationalizeButton);
+
+// Add a map
+$("#mapDiv").append(googleMap);
