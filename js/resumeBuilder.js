@@ -191,3 +191,9 @@ $("#main").append(internationalizeButton);
 
 // Add a map
 $("#mapDiv").append(googleMap);
+
+// footer contacts
+$("#footerContacts").append(formattedMobile);
+$("#footerContacts").append(formattedEmail);
+$("#footerContacts").append(formattedGithub);
+$("#footerContacts").append(formattedLocation);
