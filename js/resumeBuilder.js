@@ -8,7 +8,7 @@ var bio = {
     "github" : "codemary",
     "location" : "Bangalore",
   },
-  "pictureURL" : "images/fry.jpg",
+  "pictureURL" : "images/tweety.png",
   "welcomeMessage" : "Hi!",
   "skills" : ["HTML5", "CSS3", "JavaScript"]
 };
@@ -97,7 +97,7 @@ var projects = {
       "title": "My Portfolio",
       "dates": "January 2017",
       "description": "Made a responsive website using HTML5, CSS3 and Gulp.",
-      "images": []
+      "images": ["Images/portfolio_project.png"]
     }
   ]
 }
