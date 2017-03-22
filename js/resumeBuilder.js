@@ -8,7 +8,7 @@ var bio = {
         "github": "codemary",
         "location": "Bangalore",
     },
-    "pictureURL": "images/profile_pic.jpg",
+    "biopic": "images/profile_pic.jpg",
     "welcomeMessage": "hello!",
     "skills": ["html5", "css3", "javascript", "jquery", "photoshop"]
 };
@@ -24,17 +24,14 @@ bio.display = function() {
     var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
 
     var formattedWelcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-    var formattedImage = HTMLbioPic.replace("%data%", bio.pictureURL);
+    var formattedImage = HTMLbioPic.replace("%data%", bio.biopic);
 
     // contacts
-    $("#topContacts").append(formattedMobile);
-    $("#topContacts").append(formattedEmail);
-    $("#topContacts").append(formattedGithub);
-    $("#topContacts").append(formattedLocation);
+    $("#topContacts" , "#footer-contacts").append(formattedMobile, formattedEmail, formattedGithub, formattedLocation);
 
+    // header
     $("#header").append(formattedImage);
-    $("#header").prepend(formattedRole);
-    $("#header").prepend(formattedName);
+    $("#header").prepend(formattedName, formattedRole);
     $("#header").append(formattedWelcomeMessage);
 
     // skills
@@ -45,15 +42,7 @@ bio.display = function() {
             $("#skills").append(formattedSkills);
         });
     }
-
-    // footer contacts
-    $("#footer-contacts").append(formattedMobile);
-    $("#footer-contacts").append(formattedEmail);
-    $("#footer-contacts").append(formattedGithub);
-    $("#footer-contacts").append(formattedLocation);
 };
-
-bio.display();
 
 // Object: WORK
 var work = {
@@ -82,7 +71,6 @@ work.display = function() {
         $(".work-entry:last").append(formattedDescription);
     });
 };
-work.display();
 
 // Object: PROJECTS
 var projects = {
@@ -112,7 +100,6 @@ projects.display = function() {
         }
     });
 };
-projects.display();
 
 // Object: EDUCATION
 var education = {
@@ -120,28 +107,31 @@ var education = {
             "name": "Amity University",
             "location": "New Delhi",
             "degree": "B.Ed.",
-            "majors": "Child Development",
-            "years": "2013-2014"
+            "majors": ["Child Development"],
+            "dates": "2013-2014",
+            "url": "http://www.knc.edu.in/"
         },
         {
             "name": "Jamia Millia Islamia",
             "location": "New Delhi",
             "degree": "Masters",
-            "majors": "Geography",
-            "years": "2011-2013"
+            "majors": ["Geography"],
+            "dates": "2011-2013",
+            "url": "http://jmi.ac.in/"
         },
         {
             "name": "Kamala Nehru College",
             "location": "New Delhi",
             "degree": "B.A.",
-            "majors": "Geography",
-            "years": "2008-2011"
+            "majors": ["Geography"],
+            "dates": "2008-2011",
+            "url": "http://www.amity.edu/"
         }
     ],
     "onlineCourses": [{
         "title": "Nanodegree Front-End Web Development",
         "school": "Udacity",
-        "years": "November 2016 - July 2017",
+        "dates": "November 2016 - July 2017",
         "url": "https://in.udacity.com/course/front-end-web-developer-nanodegree--nd001/"
     }]
 };
@@ -152,11 +142,21 @@ education.display = function() {
         var formattedCollegeName = HTMLschoolName.replace("%data%", school.name);
         var formattedCollegeDegree = HTMLschoolDegree.replace("%data%", school.degree);
         $(".education-entry").append(formattedCollegeName + formattedCollegeDegree);
-        var formattedCollegeDates = HTMLschoolDates.replace("%data%", school.years);
+        var formattedCollegeDates = HTMLschoolDates.replace("%data%", school.dates);
         $(".education-entry").append(formattedCollegeDates);
         var formattedCollegeLocation = HTMLschoolLocation.replace("%data%", school.location);
         $(".education-entry").append(formattedCollegeLocation);
-        var formattedCollegeMajors = HTMLschoolMajor.replace("%data%", school.majors);
+
+        var majors;
+        school.majors.forEach(function(major){
+          if (majors === undefined){
+            majors = major;
+            return;
+          }
+          majors = majors + ", " + major;
+        });
+
+        var formattedCollegeMajors = HTMLschoolMajor.replace("%data%", majors);
         $(".education-entry").append(formattedCollegeMajors);
 
 
@@ -167,31 +167,25 @@ education.display = function() {
         var formattedOnlineCollegeTitle = HTMLonlineTitle.replace("%data%", onlineCourse.title);
         var formattedOnlineschoolschool = HTMLonlineSchool.replace("%data%", onlineCourse.school);
         $(".education-entry").append(formattedOnlineCollegeTitle + formattedOnlineschoolschool);
-        var formattedOnlineCollegeDates = HTMLonlineDates.replace("%data%", onlineCourse.years);
+        var formattedOnlineCollegeDates = HTMLonlineDates.replace("%data%", onlineCourse.dates);
         $(".education-entry").append(formattedOnlineCollegeDates);
         var formattedOnlineCollegeUrl = HTMLonlineURL.replace("%data%", onlineCourse.url);
         $(".education-entry").append(formattedOnlineCollegeUrl);
     });
 };
+
+// render resume sections
+bio.display();
+work.display();
+projects.display();
 education.display();
 
-// Click Locations
+// click locations
 $(document).click(function(loc) {
     var x = loc.pageX;
     var y = loc.pageY;
     logClicks(x, y);
 });
 
-// Internationaliz the name
-function inName(name) {
-    name = name.trim().split(" ");
-    console.log(name);
-    name[1] = name[1].toUpperCase();
-    name[0] = name[0].slice(0, 1).toUpperCase() + name[0].slice(1).toLowerCase();
-
-    return name[0] + " " + name[1];
-}
-$("#main").append(internationalizeButton);
-
-// Add a map
+// map
 $("#mapDiv").append(googleMap);
