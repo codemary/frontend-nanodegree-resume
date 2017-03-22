@@ -27,7 +27,7 @@ bio.display = function() {
     var formattedImage = HTMLbioPic.replace("%data%", bio.biopic);
 
     // contacts
-    $("#topContacts" , "#footer-contacts").append(formattedMobile, formattedEmail, formattedGithub, formattedLocation);
+    $("#topContacts , #footer-contacts").append(formattedMobile, formattedEmail, formattedGithub, formattedLocation);
 
     // header
     $("#header").append(formattedImage);
@@ -139,7 +139,7 @@ var education = {
 education.display = function() {
     $("#education").append(HTMLschoolStart);
     education.schools.forEach(function(school) {
-        var formattedCollegeName = HTMLschoolName.replace("%data%", school.name);
+        var formattedCollegeName = HTMLschoolName.replace("%data%", school.name).replace('#', school.url);
         var formattedCollegeDegree = HTMLschoolDegree.replace("%data%", school.degree);
         $(".education-entry").append(formattedCollegeName + formattedCollegeDegree);
         var formattedCollegeDates = HTMLschoolDates.replace("%data%", school.dates);
@@ -164,7 +164,7 @@ education.display = function() {
     // online courses
     $(".education-entry").append(HTMLonlineClasses);
     education.onlineCourses.forEach(function(onlineCourse) {
-        var formattedOnlineCollegeTitle = HTMLonlineTitle.replace("%data%", onlineCourse.title);
+        var formattedOnlineCollegeTitle = HTMLonlineTitle.replace("%data%", onlineCourse.title).replace('#', onlineCourse.url);
         var formattedOnlineschoolschool = HTMLonlineSchool.replace("%data%", onlineCourse.school);
         $(".education-entry").append(formattedOnlineCollegeTitle + formattedOnlineschoolschool);
         var formattedOnlineCollegeDates = HTMLonlineDates.replace("%data%", onlineCourse.dates);
